@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-    <div className="w-full border-2 border-red-500 h-screen">
+    <div className="w-full  max-h-screen relative">
       <Navbar />
       <InputBox />
     </div>
