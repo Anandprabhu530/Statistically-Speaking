@@ -17,8 +17,8 @@ const InputBox = () => {
       setFirst(false);
     }
     setChat([...chat, input]);
-    // const data = await Command_GenAI(input);
-    console.log("data");
+    const data = await Command_GenAI(input);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const InputBox = () => {
 
   return (
     <div className="w-full flex justify-center relative">
-      <div className="w-[40rem] absolute top-[50px] overflow-y-auto h-fit pb-[180px] ">
+      <div className="w-[40rem] pb-[180px] ">
         {chat.length !== 0 ? (
           <div>
             {chat.map((solodata, index) => (
