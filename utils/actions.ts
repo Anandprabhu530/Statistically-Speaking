@@ -9,17 +9,13 @@ const pool = new Pool({
   port: 5432,
 });
 
-// export const res =
-//   }
-// });
-
-export const result = async () => {
+export async function result(input) {
   "use server";
-  const data = pool.query("SELECT * FROM test_data where ", (err, result) => {
+  const data = pool.query(input, (err, result) => {
     if (err) {
       console.log(err);
     } else {
       console.log(result.rows);
     }
   });
-};
+}
