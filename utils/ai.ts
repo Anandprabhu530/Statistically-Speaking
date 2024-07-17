@@ -52,7 +52,6 @@ export const Command_GenAI = async (formData: FormData) => {
                       cmd:"Command for the given input here without any markdown. Strictly no markdown"
                       recommendation: "Additional question that can be asked"
                     }
-
                     Input:${input}
                     Give me the command as text for the output. Strictly no additional words. Only command no matter what the input is.`;
   const response = await model2.invoke(prompt);
@@ -62,5 +61,5 @@ export const Command_GenAI = async (formData: FormData) => {
   console.log(exec_query);
   const query_call = result(exec_query);
   console.log("Exited AI Function");
-  return response;
+  return query_call;
 };
