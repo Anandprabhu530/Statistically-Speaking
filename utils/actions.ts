@@ -9,13 +9,9 @@ const pool = new Pool({
   port: 5432,
 });
 
-export async function result(input) {
-  "use server";
-  const data = pool.query(input, (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(result.rows);
-    }
-  });
+export async function result(input: any) {
+  const client = await pool.connect();
+  const queryResult = await client.query(input);
+  await client.release();
+  return queryResult.rows;
 }
