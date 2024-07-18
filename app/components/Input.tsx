@@ -15,14 +15,19 @@ const InputBox = () => {
     if (first) {
       setFirst(false);
     }
-    setChat([...chat, input]);
+    setChat((prev) => [...prev, [input]]);
     const data = await fetch("http://localhost:3000/api", {
       method: "POST",
       headers: { Accept: "application/json", method: "POST" },
       body: JSON.stringify({ input: input }),
     }).then((res) => res.json());
-    setChat([...chat, data.server]);
+    setChat((prev) => [...prev, data.response]);
+    console.log(chat);
   };
+
+  useEffect(() => {
+    console.log(chat, "from use effect");
+  }, [chat]);
 
   useEffect(() => {
     const height = textref.current.scrollHeight;
@@ -34,12 +39,20 @@ const InputBox = () => {
       <div className="w-[40rem] pb-[180px] ">
         {chat.length !== 0 ? (
           <div>
-            {chat.map((solodata, index) => (
+            {chat.map((solodata, index: number) => (
               <div key={index}>
                 {index % 2 === 0 ? (
-                  <div className="text-lg font-semibold pb-6">{solodata}</div>
+                  <div className="text-lg font-semibold pb-6">
+                    {solodata[0]}
+                  </div>
                 ) : (
-                  <div>{solodata.map(() => {})}</div>
+                  <div>
+                    {solodata.map((output: any, index: number) => (
+                      <div key={index}>
+                        {output.company} : {output.highest_salary}
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
             ))}
