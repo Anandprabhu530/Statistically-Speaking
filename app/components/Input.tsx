@@ -1,8 +1,8 @@
 "use client";
+import { ColumnDef } from "@tanstack/react-table";
 
 import { useEffect, useRef, useState } from "react";
 import { DataTable } from "./DataTable";
-import { columns } from "../Column";
 
 const InputBox = () => {
   const [input, setInput] = useState("");
@@ -12,6 +12,18 @@ const InputBox = () => {
   const handlechange = (event: any) => {
     setInput(event.target.value);
   };
+  const dt = [
+    { company: "ABC", salary: "895600", id: 1 },
+    { company: "DFG", salary: "500600", id: 2 },
+    { company: "HIJ", salary: "700000", id: 3 },
+  ];
+  const columnumber = Object.keys(dt[0]);
+  let arr: any = [];
+  for (let i = 0; i < columnumber.length; i++) {
+    arr.push({ accessorKey: columnumber[i], header: columnumber[i] });
+  }
+
+  const columns: ColumnDef<Payment>[] = arr;
 
   const handlesubmit = async () => {
     if (first) {
@@ -36,11 +48,6 @@ const InputBox = () => {
     textref.current.style.height = `${Math.min(height, 100)}px`;
   }, [input]);
 
-  const data = [
-    { company: "ABC", salary: "895600", id: 1 },
-    { company: "DFG", salary: "500600", id: 2 },
-    { company: "HIJ", salary: "700000", id: 3 },
-  ];
   return (
     <div className="w-full flex justify-center relative">
       <div className="w-[40rem] pb-[180px] ">
@@ -54,7 +61,7 @@ const InputBox = () => {
                   </div>
                 ) : (
                   <div>
-                    <DataTable columns={columns} data={data} />
+                    <DataTable columns={columns} data={dt} />
                   </div>
                 )}
               </div>
