@@ -7,24 +7,22 @@ import { DataTable } from "./DataTable";
 const InputBox = () => {
   const [input, setInput] = useState("");
   const [first, setFirst] = useState(false);
-  const [chat, setChat] = useState<any>([["test"]]);
+  const [chat, setChat] = useState<any>([]);
   const textref = useRef(null);
   const handlechange = (event: any) => {
     setInput(event.target.value);
   };
-  const dt = [
-    { company: "ABC", salary: "895600", id: 1 },
-    { company: "DFG", salary: "500600", id: 2 },
-    { company: "HIJ", salary: "700000", id: 3 },
-  ];
-  const columnumber = Object.keys(dt[0]);
-  let arr: any = [];
-  for (let i = 0; i < columnumber.length; i++) {
-    arr.push({ accessorKey: columnumber[i], header: columnumber[i] });
+  let columns: ColumnDef<any>[];
+  if (chat.length > 1) {
+    //hard coded chat[1] - replace with a usestate that keeps record of last index. if the index is odd then only proceed
+    const columnnames = Object.keys(chat[1][0]);
+
+    let arr: any = [];
+    for (let i = 0; i < columnnames.length; i++) {
+      arr.push({ accessorKey: columnnames[i], header: columnnames[i] });
+    }
+    columns = arr;
   }
-
-  const columns: ColumnDef<Payment>[] = arr;
-
   const handlesubmit = async () => {
     if (first) {
       setFirst(false);
@@ -55,13 +53,13 @@ const InputBox = () => {
           <div>
             {chat.map((solodata, index: number) => (
               <div key={index}>
-                {index % 2 !== 0 ? (
+                {index % 2 === 0 ? (
                   <div className="text-lg font-semibold pb-6">
                     {solodata[0]}
                   </div>
                 ) : (
                   <div>
-                    <DataTable columns={columns} data={dt} />
+                    <DataTable columns={columns} data={chat[1]} />
                   </div>
                 )}
               </div>
