@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { DataTable } from "./DataTable";
+import { columns } from "../Column";
 
 const InputBox = () => {
   const [input, setInput] = useState("");
   const [first, setFirst] = useState(false);
-  const [chat, setChat] = useState<any>([]);
+  const [chat, setChat] = useState<any>([["test"]]);
   const textref = useRef(null);
   const handlechange = (event: any) => {
     setInput(event.target.value);
@@ -34,6 +36,11 @@ const InputBox = () => {
     textref.current.style.height = `${Math.min(height, 100)}px`;
   }, [input]);
 
+  const data = [
+    { company: "ABC", salary: "895600", id: 1 },
+    { company: "DFG", salary: "500600", id: 2 },
+    { company: "HIJ", salary: "700000", id: 3 },
+  ];
   return (
     <div className="w-full flex justify-center relative">
       <div className="w-[40rem] pb-[180px] ">
@@ -41,17 +48,13 @@ const InputBox = () => {
           <div>
             {chat.map((solodata, index: number) => (
               <div key={index}>
-                {index % 2 === 0 ? (
+                {index % 2 !== 0 ? (
                   <div className="text-lg font-semibold pb-6">
                     {solodata[0]}
                   </div>
                 ) : (
                   <div>
-                    {solodata.map((output: any, index: number) => (
-                      <div key={index}>
-                        {output.company} : {output.highest_salary}
-                      </div>
-                    ))}
+                    <DataTable columns={columns} data={data} />
                   </div>
                 )}
               </div>
