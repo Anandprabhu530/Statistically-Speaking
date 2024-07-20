@@ -8,33 +8,37 @@ const InputBox = () => {
   const [input, setInput] = useState("");
   const [first, setFirst] = useState(false);
   const [chat, setChat] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
   const textref = useRef(null);
+
+  //change
   const handlechange = (event: any) => {
     setInput(event.target.value);
   };
   let columns: ColumnDef<any>[];
-  if (chat.length > 1) {
-    //hard coded chat[1] - replace with a usestate that keeps record of last index. if the index is odd then only proceed
-    const columnnames = Object.keys(chat[1][0]);
-
+  if (chat.length > 1 && !loading) {
+    const columnnames = Object.keys(chat[chat.length - 1][0]);
     let arr: any = [];
     for (let i = 0; i < columnnames.length; i++) {
       arr.push({ accessorKey: columnnames[i], header: columnnames[i] });
     }
     columns = arr;
   }
+
+  //submit
   const handlesubmit = async () => {
     if (first) {
       setFirst(false);
     }
-    setChat((prev) => [...prev, [input]]);
+    setChat((prev: any) => [...prev, [input]]);
+    setLoading(true);
     const data = await fetch("http://localhost:3000/api", {
       method: "POST",
       headers: { Accept: "application/json", method: "POST" },
       body: JSON.stringify({ input: input }),
     }).then((res) => res.json());
-    setChat((prev) => [...prev, data.response]);
-    console.log(chat);
+    setChat((prev: any) => [...prev, data.response]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -48,18 +52,23 @@ const InputBox = () => {
 
   return (
     <div className="w-full flex justify-center relative">
-      <div className="w-[40rem] pb-[180px] ">
+      <div className="w-[40rem] pb-[180px] pt-[60px]">
         {chat.length !== 0 ? (
           <div>
-            {chat.map((solodata, index: number) => (
+            {chat.map((solodata: any, index: number) => (
               <div key={index}>
                 {index % 2 === 0 ? (
                   <div className="text-lg font-semibold pb-6">
                     {solodata[0]}
+                    {loading && (
+                      <div className="text-xl text-black pt-10 h-[40rem] w-[40rem] border border-neutral-700 rounded-md bg-neutral-500"></div>
+                    )}
                   </div>
                 ) : (
                   <div>
-                    <DataTable columns={columns} data={chat[1]} />
+                    {columns && (
+                      <DataTable columns={columns} data={chat[index]} />
+                    )}
                   </div>
                 )}
               </div>

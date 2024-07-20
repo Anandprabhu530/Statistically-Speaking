@@ -19,5 +19,4 @@ const { Pool } = pg;
 
 export const res = async () => {
   "use server";
-  console.log("first");
 };
