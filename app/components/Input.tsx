@@ -58,14 +58,18 @@ const InputBox = () => {
             {chat.map((solodata: any, index: number) => (
               <div key={index}>
                 {index % 2 === 0 ? (
-                  <div className="text-lg font-semibold pb-6">
+                  <div className="text-lg font-semibold pb-2">
                     {solodata[0]}
                     {loading && (
-                      <div className="text-xl text-black pt-10 h-[40rem] w-[40rem] border border-neutral-700 rounded-md bg-neutral-500"></div>
+                      <div className="pt-4">
+                        <div className="text-xl text-neutral-400 h-[15rem] w-[40rem] border border-neutral-300 rounded-md flex justify-center items-center">
+                          Loading...
+                        </div>
+                      </div>
                     )}
                   </div>
                 ) : (
-                  <div>
+                  <div className="py-6">
                     {columns && (
                       <DataTable columns={columns} data={chat[index]} />
                     )}
