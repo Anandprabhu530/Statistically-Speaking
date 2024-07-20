@@ -21,16 +21,17 @@ export async function POST(request: NextRequest) {
                     Location VARCHAR(250): Location of job.
                     roles VARCHAR(50): In domain they work.(eg. Andriod, IOS, Web, Java etc).. Output in the below format only.
                     {
-                      cmd:"Command for the given input here without any markdown. Strictly no markdown"
-                      recommendation: "Additional question that can be asked"
-                      query_explanation: "Explanation of the given query"
+                      query:"Command for the given input here without any markdown. Strictly no markdown",
+                      recommendation: "Additional question that can be asked",
+                      query_explanation: "Explanation of the given query",
+                      query_markdown: "Query with markdown format"
                     }
                     Input:${input}
                     Give me the command as text for the output. Strictly no additional words. Only command no matter what the input is.`;
   const response = await model2.invoke(prompt);
   const data_ds = response.content.slice(8, -4);
   const output = await JSON.parse(data_ds);
-  const exec_query = output.cmd;
+  const exec_query = output.query;
   console.log(exec_query);
   const query_call = await result(exec_query);
   output.query_resut = query_call;

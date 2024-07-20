@@ -17,12 +17,13 @@ const InputBox = () => {
   };
   let columns: ColumnDef<any>[];
   if (chat.length > 1 && !loading) {
-    const columnnames = Object.keys(chat[chat.length - 1][0]);
+    const columnnames = Object.keys(chat[chat.length - 1].query_resut[0]);
     let arr: any = [];
     for (let i = 0; i < columnnames.length; i++) {
       arr.push({ accessorKey: columnnames[i], header: columnnames[i] });
     }
     columns = arr;
+    console.log(chat);
   }
 
   //submit
@@ -37,8 +38,8 @@ const InputBox = () => {
       headers: { Accept: "application/json", method: "POST" },
       body: JSON.stringify({ input: input }),
     }).then((res) => res.json());
-    console.log(data);
-    setChat((prev: any) => [...prev, data.response.query_resut]);
+
+    setChat((prev: any) => [...prev, data.response]);
     setLoading(false);
   };
 
@@ -59,11 +60,11 @@ const InputBox = () => {
             {chat.map((solodata: any, index: number) => (
               <div
                 key={index}
-                className="border border-neutral-100 rounded-md p-4"
+                className="border border-neutral-300 rounded-md p-4 mb-4"
               >
                 {index % 2 === 0 ? (
                   <div className="text-lg font-semibold pb-2">
-                    {solodata[0]}
+                    {solodata[index]}
                     {loading && (
                       <div className="pt-4">
                         <div className="text-xl text-neutral-400 h-[15rem] w-full border border-neutral-300 rounded-md flex justify-center items-center">
@@ -73,9 +74,23 @@ const InputBox = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="py-6">
+                  <div className="pt-2 pb-6">
                     {columns && (
-                      <DataTable columns={columns} data={chat[index]} />
+                      <div>
+                        <div className="rounded-md bg-neutral-900 text-white p-2">
+                          {chat[index].query_markdown}
+                        </div>
+                        <div className="font-semibold pt-4 pb-1">
+                          Query Explanation
+                        </div>
+                        <div className="pb-4 text-base">
+                          {chat[index].query_explanation}
+                        </div>
+                        <DataTable
+                          columns={columns}
+                          data={chat[index].query_resut}
+                        />
+                      </div>
                     )}
                   </div>
                 )}
