@@ -23,6 +23,7 @@ export async function POST(request: NextRequest) {
                     {
                       cmd:"Command for the given input here without any markdown. Strictly no markdown"
                       recommendation: "Additional question that can be asked"
+                      query_explanation: "Explanation of the given query"
                     }
                     Input:${input}
                     Give me the command as text for the output. Strictly no additional words. Only command no matter what the input is.`;
@@ -32,6 +33,7 @@ export async function POST(request: NextRequest) {
   const exec_query = output.cmd;
   console.log(exec_query);
   const query_call = await result(exec_query);
+  output.query_resut = query_call;
   console.log("Exited AI Function");
-  return Response.json({ response: query_call });
+  return Response.json({ response: output });
 }

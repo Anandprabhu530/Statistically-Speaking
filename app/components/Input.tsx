@@ -37,7 +37,8 @@ const InputBox = () => {
       headers: { Accept: "application/json", method: "POST" },
       body: JSON.stringify({ input: input }),
     }).then((res) => res.json());
-    setChat((prev: any) => [...prev, data.response]);
+    console.log(data);
+    setChat((prev: any) => [...prev, data.response.query_resut]);
     setLoading(false);
   };
 
@@ -56,13 +57,16 @@ const InputBox = () => {
         {chat.length !== 0 ? (
           <div>
             {chat.map((solodata: any, index: number) => (
-              <div key={index}>
+              <div
+                key={index}
+                className="border border-neutral-100 rounded-md p-4"
+              >
                 {index % 2 === 0 ? (
                   <div className="text-lg font-semibold pb-2">
                     {solodata[0]}
                     {loading && (
                       <div className="pt-4">
-                        <div className="text-xl text-neutral-400 h-[15rem] w-[40rem] border border-neutral-300 rounded-md flex justify-center items-center">
+                        <div className="text-xl text-neutral-400 h-[15rem] w-full border border-neutral-300 rounded-md flex justify-center items-center">
                           Loading...
                         </div>
                       </div>
