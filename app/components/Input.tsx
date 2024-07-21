@@ -64,7 +64,7 @@ const InputBox = () => {
   };
   let columns: ColumnDef<any>[];
   if (chat.length > 1 && !loading) {
-    //const columnnames = Object.keys(chat[chat.length - 1].query_result[0]); Change to this once testing is complete
+    //const columnnames = Object.keys(chat[chat.length - 1].query_result[0]); Change this
     const columnnames = Object.keys(chat[chat.length - 1][0].query_result[0]);
     let arr: any = [];
     for (let i = 0; i < columnnames.length; i++) {
