@@ -18,13 +18,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { location: "Bangalore", location_count: 275, fill: "var(--color-chrome)" },
-  { location: "Hyderabad", location_count: 200, fill: "var(--color-safari)" },
-  { location: "Chennai", location_count: 287, fill: "var(--color-firefox)" },
-  { location: "Pune", location_count: 173, fill: "var(--color-edge)" },
-  { location: "Kolkata", location_count: 190, fill: "var(--color-other)" },
-];
 
 const chartConfig = {
   location_count: {
@@ -52,10 +45,13 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function Chart_Component() {
+export function Chart_Component({ chartData }: any) {
   const totallocation_count = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.location_count, 0);
-  }, []);
+    return chartData.reduce(
+      (acc: any, curr: any) => parseInt(acc + parseInt(curr.location_count)),
+      0
+    );
+  }, [chartData]);
 
   return (
     <Card className="flex flex-col">
