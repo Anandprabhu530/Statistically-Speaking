@@ -9,52 +9,7 @@ import Mapper from "./Mapper";
 const InputBox = () => {
   const [input, setInput] = useState("");
   const [first, setFirst] = useState(false);
-  const [chat, setChat] = useState<any>([
-    ["Top 3 company with highest individual salary"],
-    [
-      {
-        query:
-          "SELECT company, MAX(salary) AS highest_salary FROM test_data GROUP BY company ORDER BY highest_salary DESC LIMIT 3",
-        query_explanation:
-          "This query first groups the data by company and calculates the maximum salary for each company using the MAX() function. Then it orders the results by highest_salary in descending order and limits the output to the top 3 companies.",
-        query_markdown:
-          "```sql\nSELECT company, MAX(salary) AS highest_salary\nFROM test_data\nGROUP BY company\nORDER BY highest_salary DESC\nLIMIT 3\n```",
-        query_result: [
-          { company: "Thapar University", highest_salary: 90000000 },
-          { company: "OASYS Cybernetics", highest_salary: 10000000 },
-          { company: "Koru UX Design", highest_salary: 10000000 },
-        ],
-        recommendation: [
-          "What are the top 5 companies with the highest average salary?",
-          "What is the distribution of salaries across different job roles?",
-          "Which location has the highest average salary?",
-          "What is the average salary for full-time employees?",
-        ],
-      },
-    ],
-    ["Top 3 company with highest individual salary"],
-    [
-      {
-        query:
-          "SELECT company, MAX(salary) AS highest_salary FROM test_data GROUP BY company ORDER BY highest_salary DESC LIMIT 3",
-        query_explanation:
-          "This query first groups the data by company and calculates the maximum salary for each company using the MAX() function. Then it orders the results by highest_salary in descending order and limits the output to the top 3 companies.",
-        query_markdown:
-          "```sql\nSELECT company, MAX(salary) AS highest_salary\nFROM test_data\nGROUP BY company\nORDER BY highest_salary DESC\nLIMIT 3\n```",
-        query_result: [
-          { company: "Thapar University", highest_salary: 90000000 },
-          { company: "OASYS Cybernetics", highest_salary: 10000000 },
-          { company: "Koru UX Design", highest_salary: 10000000 },
-        ],
-        recommendation: [
-          "What are the top 5 companies with the highest average salary?",
-          "What is the distribution of salaries across different job roles?",
-          "Which location has the highest average salary?",
-          "What is the average salary for full-time employees?",
-        ],
-      },
-    ],
-  ]);
+  const [chat, setChat] = useState<any>([]);
   const [loading, setLoading] = useState(false);
   const textref = useRef(null);
 
@@ -64,8 +19,7 @@ const InputBox = () => {
   };
   let columns: ColumnDef<any>[];
   if (chat.length > 1 && !loading) {
-    //const columnnames = Object.keys(chat[chat.length - 1].query_result[0]); Change this
-    const columnnames = Object.keys(chat[chat.length - 1][0].query_result[0]);
+    const columnnames = Object.keys(chat[chat.length - 1].query_result[0]);
     let arr: any = [];
     for (let i = 0; i < columnnames.length; i++) {
       arr.push({ accessorKey: columnnames[i], header: columnnames[i] });
@@ -125,8 +79,7 @@ const InputBox = () => {
                       <div>
                         <div className="rounded-md bg-neutral-900 text-white p-2 ">
                           <ReactMarkdown>
-                            {/* {chat[index].query_markdown} -change this also */}
-                            {chat[index][0].query_markdown}
+                            {chat[index].query_markdown}
                           </ReactMarkdown>
                         </div>
                         <div className="font-semibold pt-4 pb-1">
@@ -137,17 +90,15 @@ const InputBox = () => {
                         </div>
                         <DataTable
                           columns={columns}
-                          //data={chat[index].query_result} - Change once done
-                          data={chat[index][0].query_result}
+                          data={chat[index].query_result}
                         />
-                        {/* chat[index].recommendation) - Change once done */}
                         {
                           <div>
                             <div className="py-4 font-semibold">
                               Additional Recommendations
                             </div>
                             <div className="grid grid-cols-2 gap-4">
-                              {chat[index][0].recommendation.map(
+                              {chat[index].recommendation.map(
                                 (indi_data: any, ind: number) => (
                                   <Mapper
                                     indi_data={indi_data}
