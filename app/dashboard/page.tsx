@@ -1,30 +1,67 @@
 import { Chart_Component } from "../components/Chart_Component";
 
 export default async function page() {
-  // const chartData = [
-  //   { location: "Bangalore", location_count: "8264" },
-  //   { location: "Hyderabad", location_count: 4467 },
-  //   { location: "New Delhi", location_count: 4176 },
-  //   { location: "Chennai", location_count: 2458 },
-  //   { location: "Pune", location_count: 2134 },
-  //   { location: "Mumbai", location_count: "749" },
-  //   { location: "Kolkata", location_count: "178" },
-  //   { location: "Madhya Pradesh", location_count: "155" },
-  //   { location: "Kerala", location_count: "108" },
-  //   { location: "Jaipur", location_count: "81" },
-  // ];
-  const chartData = await fetch("http://localhost:3000/api/dashboard", {
-    method: "GET",
-    headers: { Accept: "application/json", method: "GET" },
+  const Locationdata = await fetch("http://localhost:3000/api/dashboard", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      method: "POST",
+      data: "Location_data",
+    },
   }).then((res) => res.json());
-  chartData.message.map(
-    (solodata) => (solodata.location_count = parseInt(solodata.location_count))
-  );
-  console.log(chartData.message);
+
+  Locationdata.message.map((solodata: any) => {
+    solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    solodata.location_count = parseInt(solodata.location_count);
+  });
+
+  const Roledata = await fetch("http://localhost:3000/api/dashboard", {
+    method: "POST",
+    headers: { Accept: "application/json", method: "POST", data: "Role_data" },
+  }).then((res) => res.json());
+
+  Roledata.message.map((solodata: any) => {
+    solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    solodata.roles_count = parseInt(solodata.roles_count);
+  });
+
+  const Employementdata = await fetch("http://localhost:3000/api/dashboard", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      method: "POST",
+      data: "Employement_data",
+    },
+  }).then((res) => res.json());
+
+  Employementdata.message.map((solodata: any) => {
+    solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    solodata.employement_count = parseInt(solodata.employement_count);
+  });
+
+  const Salarydata = await fetch("http://localhost:3000/api/dashboard", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      method: "POST",
+      data: "Salary_data",
+    },
+  }).then((res) => res.json());
+
+  Salarydata.message.map((solodata: any) => {
+    solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    solodata.number_of_jobs = parseInt(solodata.number_of_jobs);
+  });
+
   return (
     <div className="w-full h-screen">
-      {chartData.length !== 0 && (
-        <Chart_Component chartData={chartData.message} />
+      {Locationdata.message.length !== 0 && (
+        <Chart_Component
+          Locationdata={Locationdata.message}
+          Salarydata={Salarydata.message}
+          Roledata={Roledata.message}
+          Employementdata={Employementdata.message}
+        />
       )}
     </div>
   );

@@ -45,78 +45,237 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function Chart_Component({ chartData }: any) {
+export function Chart_Component({
+  Locationdata,
+  Salarydata,
+  Roledata,
+  Employementdata,
+  z,
+}: any) {
   const totallocation_count = React.useMemo(() => {
-    return chartData.reduce(
+    return Locationdata.reduce(
       (acc: any, curr: any) => parseInt(acc + parseInt(curr.location_count)),
       0
     );
-  }, [chartData]);
+  }, [Locationdata]);
 
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart - Donut with Text</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
-      </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
-        >
-          <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Pie
-              data={chartData}
-              dataKey="location_count"
-              nameKey="location"
-              innerRadius={60}
-              strokeWidth={5}
+    <div className=" w-full h-screen p-10 flex items-center justify-center flex-col text-2xl font-bold">
+      <div className="p-4">A simple Dashboard</div>
+      <div className="grid grid-cols-2 gap-2">
+        <Card className="flex flex-col">
+          <CardHeader className="items-center pb-0">
+            <CardTitle>Employee with respect to location</CardTitle>
+          </CardHeader>
+          <CardContent className="flex-1 pb-0">
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square max-h-[250px]"
             >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                      >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-foreground text-3xl font-bold"
-                        >
-                          {totallocation_count.toLocaleString()}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-muted-foreground"
-                        >
-                          location_count
-                        </tspan>
-                      </text>
-                    );
-                  }
-                }}
-              />
-            </Pie>
-          </PieChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
-    </Card>
+              <PieChart>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Pie
+                  data={Locationdata}
+                  dataKey="location_count"
+                  nameKey="location"
+                  innerRadius={65}
+                  strokeWidth={5}
+                >
+                  <Label
+                    content={({ viewBox }) => {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                        return (
+                          <text
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                          >
+                            <tspan
+                              x={viewBox.cx}
+                              y={viewBox.cy}
+                              className="fill-foreground font-bold text-lg"
+                            >
+                              Location
+                            </tspan>
+                          </text>
+                        );
+                      }
+                    }}
+                  />
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+          </CardContent>
+          <CardFooter className="flex-col gap-2 text-sm">
+            <div className="flex items-center gap-2 font-medium leading-none">
+              Showing Location based grouping
+            </div>
+          </CardFooter>
+        </Card>
+        <Card className="flex flex-col">
+          <CardHeader className="items-center pb-0">
+            <CardTitle>Employee with respect to Roles</CardTitle>
+          </CardHeader>
+          <CardContent className="flex-1 pb-0">
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square max-h-[250px]"
+            >
+              <PieChart>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Pie
+                  data={Roledata}
+                  dataKey="roles_count"
+                  nameKey="roles"
+                  innerRadius={65}
+                  strokeWidth={5}
+                >
+                  <Label
+                    content={({ viewBox }) => {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                        return (
+                          <text
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                          >
+                            <tspan
+                              x={viewBox.cx}
+                              y={viewBox.cy}
+                              className="fill-foreground font-bold text-lg"
+                            >
+                              Roles
+                            </tspan>
+                          </text>
+                        );
+                      }
+                    }}
+                  />
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+          </CardContent>
+          <CardFooter className="flex-col gap-2 text-sm">
+            <div className="flex items-center gap-2 font-medium leading-none">
+              Showing role based grouping
+            </div>
+          </CardFooter>
+        </Card>
+        <Card className="flex flex-col">
+          <CardHeader className="items-center pb-0">
+            <CardTitle>Employee with respect to Empoyement</CardTitle>
+          </CardHeader>
+          <CardContent className="flex-1 pb-0">
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square max-h-[250px]"
+            >
+              <PieChart>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Pie
+                  data={Employementdata}
+                  dataKey="employement_count"
+                  nameKey="employement"
+                  innerRadius={65}
+                  strokeWidth={5}
+                >
+                  <Label
+                    content={({ viewBox }) => {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                        return (
+                          <text
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                          >
+                            <tspan
+                              x={viewBox.cx}
+                              y={viewBox.cy}
+                              className="fill-foreground font-bold text-lg"
+                            >
+                              Employement
+                            </tspan>
+                          </text>
+                        );
+                      }
+                    }}
+                  />
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+          </CardContent>
+          <CardFooter className="flex-col gap-2 text-sm">
+            <div className="flex items-center gap-2 font-medium leading-none">
+              Showing total visitors for the last 6 months
+            </div>
+          </CardFooter>
+        </Card>
+        <Card className="flex flex-col">
+          <CardHeader className="items-center pb-0">
+            <CardTitle>Employee with respect to Salary</CardTitle>
+          </CardHeader>
+          <CardContent className="flex-1 pb-0">
+            <ChartContainer
+              config={chartConfig}
+              className="mx-auto aspect-square max-h-[250px]"
+            >
+              <PieChart>
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Pie
+                  data={Salarydata}
+                  dataKey="number_of_jobs"
+                  nameKey="salary_range"
+                  innerRadius={65}
+                  strokeWidth={5}
+                >
+                  <Label
+                    content={({ viewBox }) => {
+                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                        return (
+                          <text
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                          >
+                            <tspan
+                              x={viewBox.cx}
+                              y={viewBox.cy}
+                              className="fill-foreground font-bold text-lg"
+                            >
+                              Salary
+                            </tspan>
+                          </text>
+                        );
+                      }
+                    }}
+                  />
+                </Pie>
+              </PieChart>
+            </ChartContainer>
+          </CardContent>
+          <CardFooter className="flex-col gap-2 text-sm">
+            <div className="flex items-center gap-2 font-medium leading-none">
+              Showing total visitors for the last 6 months
+            </div>
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
   );
 }
