@@ -1,4 +1,4 @@
-# **Statistically Speaking**
+# **Statistically Speaking :nerd_face:**
 
 This web application serves as a bridge between human intuition and complex datasets, utilizing the capabilities of Large Language Models (LLMs) to democratize data analysis. By providing a natural language interface, users can effortlessly pose intricate queries about their data, without requiring SQL expertise.
 
