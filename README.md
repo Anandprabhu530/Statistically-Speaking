@@ -7,6 +7,7 @@ This web application serves as a bridge between human intuition and complex data
 Please ensure that you have Node.js(22.2.0 or above) installed on your machine.
 
 **Steps to install**
+
 Clone this repository
 
 ```
@@ -18,7 +19,9 @@ Clone this repository
 ### **Features:**
 
 1.Natural Language Querying: Users can interact with the application using plain language, allowing for intuitive exploration of data.
+
 2.LLM-Driven Data Access: The LLM translates natural language queries into SQL statements, efficiently retrieving relevant data from the underlying database.
+
 3.User-Friendly Interface: A visually appealing and intuitive interface enhances the user experience, making data exploration accessible to a wide audience.
 
 ### **How it works**
@@ -32,7 +35,9 @@ Then the LLM will follow up with similar suggestion to ask to the database.
 ### **Tech Stack:**
 
 Frontend and backend: Next.js, Shadcn UI
+
 Database: PostgreSQL
+
 LLM: Gemini-1.5-flash
 
 ### **Future Improvements**
