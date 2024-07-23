@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**Statistically Speaking**
 
-## Getting Started
+This web application serves as a bridge between human intuition and complex datasets, utilizing the capabilities of Large Language Models (LLMs) to democratize data analysis. By providing a natural language interface, users can effortlessly pose intricate queries about their data, without requiring SQL expertise.
 
-First, run the development server:
+**Installation**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Please ensure that you have Node.js(22.2.0 or above) installed on your machine.
+
+Steps to install
+
+Clone this repository
+
+```https://github.com/Anandprabhu530/Statistically-Speaking.git
+    npm install
+    npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Features:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1.Natural Language Querying: Users can interact with the application using plain language, allowing for intuitive exploration of data.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2.LLM-Driven Data Access: The LLM translates natural language queries into SQL statements, efficiently retrieving relevant data from the underlying database.
 
-## Learn More
+3.User-Friendly Interface: A visually appealing and intuitive interface enhances the user experience, making data exploration accessible to a wide audience.
 
-To learn more about Next.js, take a look at the following resources:
+**How it works**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Query the LLM with any language. LLM will convert that into code and then request to the database.
+The retrieved data will be utilized to create charts, diagrams etc..
+Then the LLM will follow up with similar suggestion to ask to the database.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Tech Stack:**
 
-## Deploy on Vercel
+Frontend and backend: Next.js, Shadcn UI
+Database: PostgreSQL
+LLM: Gemini-1.5-flash
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+**Future Improvements**
+[] - Implement measures to protect sensitive data.
+[] - Continuously evaluate and optimize the LLM's performance and accuracy.
+[] - Adding additional database support and making it more user friendly to analyze even more data.

@@ -13,11 +13,12 @@ const InputBox = () => {
   const [loading, setLoading] = useState(false);
   const textref = useRef(null);
 
-  //change
+  //Function to track input change
   const handlechange = (event: any) => {
     setInput(event.target.value);
   };
 
+  //Rearranging the data to display it in table-form
   let columns: ColumnDef<any>[];
   if (chat.length > 1 && !loading) {
     const columnnames = Object.keys(chat[chat.length - 1].query_result[0]);
@@ -28,13 +29,15 @@ const InputBox = () => {
     columns = arr;
   }
 
-  //submit
+  //Submit funtion
   const handlesubmit = async () => {
+    //Checks for the first time submission
     if (first) {
       setFirst(false);
     }
     setChat((prev: any) => [...prev, [input]]);
     setLoading(true);
+
     const data = await fetch("http://localhost:3000/api", {
       method: "POST",
       headers: { Accept: "application/json", method: "POST" },
