@@ -5,6 +5,7 @@ This web application serves as a bridge between human intuition and complex data
 ### **Installation**
 
 Please ensure that you have Node.js(22.2.0 or above) installed on your machine.
+
 **Steps to install**
 Clone this repository
 
@@ -25,6 +26,7 @@ Clone this repository
 Query the LLM with any language. LLM will convert that into code and then request to the database.
 The retrieved data will be utilized to create charts, diagrams etc..
 Then the LLM will follow up with similar suggestion to ask to the database.
+
 ![Project Workflow](https://github.com/Anandprabhu530/Statistically-Speaking/blob/master/image.png)
 
 ### **Tech Stack:**
@@ -35,4 +37,6 @@ LLM: Gemini-1.5-flash
 
 ### **Future Improvements**
 
--[ ] Implement measures to protect sensitive data. -[ ] Continuously evaluate and optimize the LLM's performance and accuracy. -[ ] Adding additional database support and making it more user friendly to analyze even more data.
+- [ ] Implement measures to protect sensitive data. 
+- [ ] Continuously evaluate and optimize the LLM's performance and accuracy. 
+- [ ] Adding additional database support and making it more user friendly to analyze even more data.
