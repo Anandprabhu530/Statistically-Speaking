@@ -22,6 +22,7 @@ Clone this repository
 2.LLM-Driven Data Access: The LLM translates natural language queries into SQL statements, efficiently retrieving relevant data from the underlying database.
 
 3.User-Friendly Interface: A visually appealing and intuitive interface enhances the user experience, making data exploration accessible to a wide audience.
+![Project Workflow](https://github.com/Anandprabhu530/Statistically-Speaking/blob/master/image.png)
 
 **How it works**
 
