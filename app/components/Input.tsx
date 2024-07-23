@@ -17,6 +17,7 @@ const InputBox = () => {
   const handlechange = (event: any) => {
     setInput(event.target.value);
   };
+
   let columns: ColumnDef<any>[];
   if (chat.length > 1 && !loading) {
     const columnnames = Object.keys(chat[chat.length - 1].query_result[0]);
@@ -57,17 +58,17 @@ const InputBox = () => {
 
   return (
     <div className="w-full flex justify-center relative">
-      <div className="w-[40rem] pb-[180px] pt-[60px]">
+      <div className="w-full lg:w-[40rem] pb-[180px] pt-[60px]">
         {chat.length !== 0 ? (
           <div>
             {chat.map((solodata: any, index: number) => (
               <div key={index} className="">
                 {index % 2 === 0 ? (
-                  <div className="text-lg font-semibold p-4 rounded-t-lg shadow-xl bg-neutral-100 border-t border-r border-l border-neutral-300">
+                  <div className="text-lg font-semibold pl-6 py-4 rounded-t-lg shadow-xl bg-neutral-100 border-t border-r border-l border-neutral-300">
                     {chat[index]}
                     {loading && (
                       <div className="pt-4">
-                        <div className="text-xl text-neutral-400 h-[15rem] w-full border border-neutral-300 rounded-md flex justify-center items-center">
+                        <div className="text-xl text-neutral-400 h-[15rem] w-full border border-neutral-300 rounded-xl lg:rounded-md flex justify-center items-center">
                           Loading...
                         </div>
                       </div>
@@ -77,7 +78,7 @@ const InputBox = () => {
                   <div className="p-6 pt-2 rounded-b-lg shadow-xl mb-8 bg-neutral-100 border-b border-l border-r border-neutral-300">
                     {columns && (
                       <div>
-                        <div className="rounded-md bg-neutral-900 text-white p-2 ">
+                        <div className="rounded-xl lg:rounded-md bg-neutral-900 text-white p-2">
                           <ReactMarkdown>
                             {chat[index].query_markdown}
                           </ReactMarkdown>
@@ -126,7 +127,7 @@ const InputBox = () => {
         )}
       </div>
       <div className="fixed w-full flex items-end h-screen justify-center">
-        <div className="border border-neutral-400 rounded-md p-4 pt-2 w-[40rem] absolute bg-white my-4 ">
+        <div className="border lg:border-neutral-400 border-t-neutral-400 rounded-xl lg:rounded-md p-4 pt-2 lg:w-[40rem] absolute bg-white mt-4 lg:my-4 w-full">
           <textarea
             className="py-2 pr-2 bg-transparent w-full outline-none resize-none"
             placeholder="Ask anything"
@@ -135,11 +136,8 @@ const InputBox = () => {
             ref={textref}
           />
           <div className="flex justify-between">
-            <div className="flex gap-4">
-              <div className="font-semibold">Hello</div>
-              <div className="text-neutral-600 font-semibold">View Command</div>
-            </div>
-            <div className="bg-neutral-200 p-2 rounded-md cursor-pointer">
+            <div></div>
+            <div className="bg-neutral-200 p-2 rounded-xl lg:rounded-md cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
