@@ -12,6 +12,5 @@ const pool = new Pool({
 export async function result(input: any) {
   const client = await pool.connect();
   const queryResult = await client.query(input);
-  await client.release();
   return queryResult.rows;
 }

@@ -47,15 +47,14 @@ export default async function page() {
       data: "Salary_data",
     },
   }).then((res) => res.json());
-
-  Salarydata.message.map((solodata: any) => {
+  console.log(Salarydata, "from api route");
+  Employementdata.message.map((solodata: any) => {
     solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    solodata.number_of_jobs = parseInt(solodata.number_of_jobs);
   });
 
   return (
     <div className="w-full h-screen">
-      {Locationdata.message.length !== 0 && (
+      {Salarydata.message.length !== 0 && (
         <Chart_Component
           Locationdata={Locationdata.message}
           Salarydata={Salarydata.message}

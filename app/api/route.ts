@@ -1,4 +1,3 @@
-// import { result } from "@/utils/actions";
 import { NextRequest } from "next/server";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { result } from "@/utils/actions";

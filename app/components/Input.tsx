@@ -130,7 +130,7 @@ const InputBox = () => {
         )}
       </div>
       <div className="fixed w-full flex items-end h-screen justify-center">
-        <div className="border lg:border-neutral-400 border-t-neutral-400 rounded-xl lg:rounded-md p-4 pt-2 lg:w-[40rem] absolute bg-white mt-4 lg:my-4 w-full">
+        <div className="border lg:border-neutral-400 border-t-neutral-400 rounded-xl p-4 pt-2 lg:w-[40rem] absolute bg-white mt-4 lg:my-4 w-full">
           <textarea
             className="py-2 pr-2 bg-transparent w-full outline-none resize-none"
             placeholder="Ask anything"
@@ -140,7 +140,7 @@ const InputBox = () => {
           />
           <div className="flex justify-between">
             <div></div>
-            <div className="bg-neutral-200 p-2 rounded-xl lg:rounded-md cursor-pointer">
+            <div className="bg-neutral-200 p-2 rounded-xl  cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
