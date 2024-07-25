@@ -11,7 +11,6 @@ export default async function page() {
   }).then((res) => res.json());
 
   Locationdata.message.map((solodata: any) => {
-    solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
     solodata.location_count = parseInt(solodata.location_count);
   });
 
@@ -35,7 +34,6 @@ export default async function page() {
   }).then((res) => res.json());
 
   Employementdata.message.map((solodata: any) => {
-    solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
     solodata.employement_count = parseInt(solodata.employement_count);
   });
 
@@ -47,7 +45,10 @@ export default async function page() {
       data: "Salary_data",
     },
   }).then((res) => res.json());
-  console.log(Salarydata, "from api route");
+
+  Salarydata.message.map((solodata: any) => {
+    solodata.average_salary = Math.floor(solodata.average_salary);
+  });
   Employementdata.message.map((solodata: any) => {
     solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
   });

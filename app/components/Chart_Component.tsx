@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Label, Pie, PieChart } from "recharts";
-import { Bar, BarChart, XAxis } from "recharts";
+import { Label, LabelList, Pie, PieChart } from "recharts";
+import { Bar, BarChart, XAxis, CartesianGrid, YAxis } from "recharts";
 
 import {
   Card,
@@ -67,6 +67,41 @@ const AreaConfig = {
   },
 } satisfies ChartConfig;
 
+const BarConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig;
+
+const Bar_Mix_Config = {
+  visitors: {
+    label: "Visitors",
+  },
+  chrome: {
+    label: "Chrome",
+    color: "hsl(var(--chart-1))",
+  },
+  safari: {
+    label: "Safari",
+    color: "hsl(var(--chart-2))",
+  },
+  firefox: {
+    label: "Firefox",
+    color: "hsl(var(--chart-3))",
+  },
+} satisfies ChartConfig;
+
+const Bar_chartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-2))",
+  },
+  label: {
+    color: "hsl(var(--background))",
+  },
+} satisfies ChartConfig;
+
 export function Chart_Component({
   Locationdata,
   Salarydata,
@@ -74,62 +109,57 @@ export function Chart_Component({
   Employementdata,
 }: any) {
   return (
-    <div className=" w-full h-screen p-10 flex items-center justify-center flex-col text-2xl font-bold">
+    <div className=" w-full min-h-screen p-10 flex items-center justify-center flex-col text-2xl font-bold">
       <div className="p-4">A simple Dashboard</div>
-      <div className="grid grid-cols-2 gap-2">
-        <Card className="flex flex-col">
-          <CardHeader className="items-center pb-0">
-            <CardTitle>Employee with respect to location</CardTitle>
+      <div className="grid grid-cols-2 gap-2 w-full">
+        <Card>
+          <CardHeader>
+            <CardTitle>Average Salary based on Job Roles</CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 pb-0">
-            <ChartContainer
-              config={chartConfig}
-              className="mx-auto aspect-square max-h-[250px]"
-            >
-              <PieChart>
+          <CardContent>
+            <ChartContainer config={Bar_chartConfig}>
+              <BarChart
+                accessibilityLayer
+                data={Salarydata}
+                layout="vertical"
+                margin={{
+                  right: 16,
+                }}
+              >
+                <CartesianGrid horizontal={false} />
+                <YAxis
+                  dataKey="roles"
+                  type="category"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                  tickFormatter={(value) => value}
+                  hide
+                />
+                <XAxis dataKey="average_salary" type="number" hide />
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
+                  content={<ChartTooltipContent indicator="line" />}
                 />
-                <Pie
-                  data={Locationdata}
-                  dataKey="location_count"
-                  nameKey="location"
-                  innerRadius={65}
-                  strokeWidth={5}
+                <Bar
+                  dataKey="average_salary"
+                  layout="vertical"
+                  fill="var(--color-desktop)"
+                  radius={5}
                 >
-                  <Label
-                    content={({ viewBox }) => {
-                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                        return (
-                          <text
-                            x={viewBox.cx}
-                            y={viewBox.cy}
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                          >
-                            <tspan
-                              x={viewBox.cx}
-                              y={viewBox.cy}
-                              className="fill-foreground font-bold text-lg"
-                            >
-                              Location
-                            </tspan>
-                          </text>
-                        );
-                      }
-                    }}
+                  <LabelList
+                    dataKey="roles"
+                    position="insideLeft"
+                    offset={8}
+                    className="fill-[--color-label]"
+                    fontSize={12}
                   />
-                </Pie>
-              </PieChart>
+                </Bar>
+              </BarChart>
             </ChartContainer>
           </CardContent>
-          <CardFooter className="flex-col gap-2 text-sm">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Showing Location based grouping
-            </div>
-          </CardFooter>
         </Card>
+
         <Card className="flex flex-col">
           <CardHeader className="items-center pb-0">
             <CardTitle>Employee with respect to Roles</CardTitle>
@@ -183,68 +213,52 @@ export function Chart_Component({
             </div>
           </CardFooter>
         </Card>
-        <Card className="flex flex-col">
-          <CardHeader className="items-center pb-0">
-            <CardTitle>Employee with respect to Empoyement</CardTitle>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="w-full text-center">
+              Employee with respect to Empoyement
+            </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 pb-0">
-            <ChartContainer
-              config={chartConfig}
-              className="mx-auto aspect-square max-h-[250px]"
-            >
-              <PieChart>
+          <CardContent>
+            <ChartContainer config={Bar_Mix_Config}>
+              <BarChart
+                accessibilityLayer
+                data={Employementdata}
+                layout="vertical"
+                margin={{
+                  left: 0,
+                }}
+              >
+                <YAxis
+                  dataKey="employement"
+                  type="category"
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(value) => value}
+                />
+                <XAxis dataKey="employement_count" type="number" hide />
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent hideLabel />}
                 />
-                <Pie
-                  data={Employementdata}
-                  dataKey="employement_count"
-                  nameKey="employement"
-                  innerRadius={65}
-                  strokeWidth={5}
-                >
-                  <Label
-                    content={({ viewBox }) => {
-                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                        return (
-                          <text
-                            x={viewBox.cx}
-                            y={viewBox.cy}
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                          >
-                            <tspan
-                              x={viewBox.cx}
-                              y={viewBox.cy}
-                              className="fill-foreground font-bold text-lg"
-                            >
-                              Employement
-                            </tspan>
-                          </text>
-                        );
-                      }
-                    }}
-                  />
-                </Pie>
-              </PieChart>
+                <Bar dataKey="employement_count" layout="vertical" radius={8} />
+              </BarChart>
             </ChartContainer>
           </CardContent>
-          <CardFooter className="flex-col gap-2 text-sm">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Showing total visitors for the last 6 months
-            </div>
-          </CardFooter>
         </Card>
       </div>
       <div className="w-[80%]">
         <Card>
           <CardHeader>
-            <CardTitle>Tooltip - No Label</CardTitle>
+            <CardTitle className="flex w-full justify-center items-center">
+              Location Based data
+            </CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={AreaConfig}>
-              <BarChart accessibilityLayer data={Salarydata}>
+            <ChartContainer config={BarConfig}>
+              <BarChart accessibilityLayer data={Locationdata}>
+                <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey="location"
                   tickLine={false}
@@ -252,52 +266,14 @@ export function Chart_Component({
                   axisLine={false}
                   tickFormatter={(value) => value}
                 />
-                <Bar
-                  dataKey="less_than_300000"
-                  stackId="a"
-                  fill="var(--color-running)"
-                  radius={[0, 0, 4, 4]}
-                />
-                <Bar
-                  dataKey="300000-399999"
-                  stackId="a"
-                  fill="var(--color-swimming)"
-                  radius={[4, 4, 0, 0]}
-                />
-                <Bar
-                  dataKey="400000-499999"
-                  stackId="a"
-                  fill="var(--color-labeling)"
-                  radius={[4, 4, 0, 0]}
-                />
-                <Bar
-                  dataKey="500000-599999"
-                  stackId="a"
-                  fill="var(--color-testing)"
-                  radius={[4, 4, 0, 0]}
-                />
-                <Bar
-                  dataKey="600000-699999"
-                  stackId="a"
-                  fill="var(--color-cofusing)"
-                  radius={[4, 4, 0, 0]}
-                />
-                <Bar
-                  dataKey="700000-799999"
-                  stackId="a"
-                  fill="var(--color-swimming)"
-                  radius={[4, 4, 0, 0]}
-                />
-                <Bar
-                  dataKey="greater_than_800000"
-                  stackId="a"
-                  fill="var(--color-swimming)"
-                  radius={[4, 4, 0, 0]}
-                />
                 <ChartTooltip
-                  content={<ChartTooltipContent hideIndicator hideLabel />}
                   cursor={false}
-                  defaultIndex={1}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Bar
+                  dataKey="location_count"
+                  fill="var(--color-desktop)"
+                  radius={8}
                 />
               </BarChart>
             </ChartContainer>
