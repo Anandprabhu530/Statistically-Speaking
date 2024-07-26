@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/chart";
 
 const chartConfig = {
-  location_count: {
-    label: "location_count",
+  visitors: {
+    label: "visitors",
   },
   chrome: {
     label: "Chrome",
@@ -107,6 +107,7 @@ export function Chart_Component({
   Salarydata,
   Roledata,
   Employementdata,
+  CompanyData,
 }: any) {
   return (
     <div className=" w-full min-h-screen p-10 flex items-center justify-center flex-col text-2xl font-bold">
@@ -221,7 +222,7 @@ export function Chart_Component({
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={Bar_Mix_Config}>
+            <ChartContainer config={chartConfig}>
               <BarChart
                 accessibilityLayer
                 data={Employementdata}
@@ -243,6 +244,38 @@ export function Chart_Component({
                   content={<ChartTooltipContent hideLabel />}
                 />
                 <Bar dataKey="employement_count" layout="vertical" radius={8} />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="w-full text-center">Company vs Job</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig}>
+              <BarChart
+                accessibilityLayer
+                data={CompanyData}
+                layout="vertical"
+                margin={{
+                  left: 0,
+                }}
+              >
+                <YAxis
+                  dataKey="company"
+                  type="category"
+                  tickLine={false}
+                  axisLine={false}
+                  tickFormatter={(value) => value}
+                />
+                <XAxis dataKey="total_jobs" type="number" hide />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent hideLabel />}
+                />
+                <Bar dataKey="total_jobs" layout="vertical" radius={8} />
               </BarChart>
             </ChartContainer>
           </CardContent>

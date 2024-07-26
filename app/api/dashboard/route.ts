@@ -31,4 +31,10 @@ export async function POST() {
     );
     return NextResponse.json({ message: query_call });
   }
+  if (_data === "Company_vs_job") {
+    const query_call = await result(
+      `SELECT company, COUNT(job) AS total_jobs FROM test_data GROUP BY company ORDER BY total_jobs DESC LIMIT 5;`
+    );
+    return NextResponse.json({ message: query_call });
+  }
 }
