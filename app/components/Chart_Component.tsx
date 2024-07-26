@@ -111,57 +111,58 @@ export function Chart_Component({
 }: any) {
   return (
     <div className=" w-full min-h-screen p-10 flex items-center justify-center flex-col text-2xl font-bold">
-      <div className="p-4">A simple Dashboard</div>
-      <div className="grid grid-cols-2 gap-2 w-full">
-        <Card>
-          <CardHeader>
-            <CardTitle>Average Salary based on Job Roles</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={Bar_chartConfig}>
-              <BarChart
-                accessibilityLayer
-                data={Salarydata}
-                layout="vertical"
-                margin={{
-                  right: 16,
-                }}
-              >
-                <CartesianGrid horizontal={false} />
-                <YAxis
-                  dataKey="roles"
-                  type="category"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => value}
-                  hide
-                />
-                <XAxis dataKey="average_salary" type="number" hide />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent indicator="line" />}
-                />
-                <Bar
-                  dataKey="average_salary"
+      <div className="p-4">Dashboard</div>
+      <div className="grid grid-rows-2 grid-cols-3 gap-6 w-full h-full pt-6">
+        <div className="row-span-2 col-span-2 h-full">
+          <Card className="h-full pt-8">
+            <CardHeader>
+              <CardTitle>Average Salary based on Job Roles</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={Bar_chartConfig}>
+                <BarChart
+                  accessibilityLayer
+                  data={Salarydata}
                   layout="vertical"
-                  fill="var(--color-desktop)"
-                  radius={5}
+                  margin={{
+                    right: 16,
+                  }}
                 >
-                  <LabelList
+                  <CartesianGrid horizontal={false} />
+                  <YAxis
                     dataKey="roles"
-                    position="insideLeft"
-                    offset={8}
-                    className="fill-[--color-label]"
-                    fontSize={12}
+                    type="category"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value}
+                    hide
                   />
-                </Bar>
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-
-        <Card className="flex flex-col">
+                  <XAxis dataKey="average_salary" type="number" hide />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent indicator="line" />}
+                  />
+                  <Bar
+                    dataKey="average_salary"
+                    layout="vertical"
+                    fill="var(--color-desktop)"
+                    radius={5}
+                  >
+                    <LabelList
+                      dataKey="roles"
+                      position="insideLeft"
+                      offset={8}
+                      className="fill-[--color-label]"
+                      fontSize={12}
+                    />
+                  </Bar>
+                </BarChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+        </div>
+        <Card className="h-fit">
           <CardHeader className="items-center pb-0">
             <CardTitle>Employee with respect to Roles</CardTitle>
           </CardHeader>
@@ -208,11 +209,6 @@ export function Chart_Component({
               </PieChart>
             </ChartContainer>
           </CardContent>
-          <CardFooter className="flex-col gap-2 text-sm">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Showing role based grouping
-            </div>
-          </CardFooter>
         </Card>
 
         <Card>
@@ -248,7 +244,9 @@ export function Chart_Component({
             </ChartContainer>
           </CardContent>
         </Card>
+      </div>
 
+      <div className="grid grid-rows-2 grid-cols-3 gap-6 w-full pt-6">
         <Card>
           <CardHeader>
             <CardTitle className="w-full text-center">Company vs Job</CardTitle>
@@ -280,38 +278,38 @@ export function Chart_Component({
             </ChartContainer>
           </CardContent>
         </Card>
-      </div>
-      <div className="w-[80%]">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex w-full justify-center items-center">
-              Location Based data
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={BarConfig}>
-              <BarChart accessibilityLayer data={Locationdata}>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="location"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => value}
-                />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent hideLabel />}
-                />
-                <Bar
-                  dataKey="location_count"
-                  fill="var(--color-desktop)"
-                  radius={8}
-                />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
+        <div className="row-span-2 col-span-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex w-full justify-center items-center">
+                Location Based data
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ChartContainer config={BarConfig}>
+                <BarChart accessibilityLayer data={Locationdata}>
+                  <CartesianGrid vertical={false} />
+                  <XAxis
+                    dataKey="location"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value}
+                  />
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel />}
+                  />
+                  <Bar
+                    dataKey="location_count"
+                    fill="var(--color-desktop)"
+                    radius={8}
+                  />
+                </BarChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
