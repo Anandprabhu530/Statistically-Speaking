@@ -112,8 +112,8 @@ export function Chart_Component({
   return (
     <div className=" w-full min-h-screen p-10 flex items-center justify-center flex-col text-2xl font-bold">
       <div className="p-4 text-3xl">Dashboard</div>
-      <div className="grid grid-rows-2 grid-cols-3 gap-6 w-full h-full pt-6">
-        <div className="row-span-2 col-span-2 h-full">
+      <div className="lg:grid lg:grid-rows-2 lg:grid-cols-3 md:grid md:grid-rows-2 md:grid-cols-3 grid grid-cols-1 gap-6 w-full h-full pt-6">
+        <div className="lg:row-span-2 lg:col-span-2 md:row-span-2 md:col-span-2 h-full">
           <Card className="h-full pt-8">
             <CardHeader>
               <CardTitle>Average Salary based on Job Roles</CardTitle>
@@ -246,7 +246,7 @@ export function Chart_Component({
         </Card>
       </div>
 
-      <div className="grid grid-rows-2 grid-cols-3 gap-6 w-full pt-6">
+      <div className="lg:grid lg:grid-rows-2 lg:grid-cols-3 md:grid md:grid-rows-2 md:grid-cols-3 grid grid-cols-1 gap-6 w-full pt-6">
         <Card>
           <CardHeader>
             <CardTitle className="w-full text-center">Company vs Job</CardTitle>
@@ -278,7 +278,7 @@ export function Chart_Component({
             </ChartContainer>
           </CardContent>
         </Card>
-        <div className="row-span-2 col-span-2">
+        <div className="lg:row-span-2 lg:col-span-2 md:row-span-2 md:col-span-2">
           <Card>
             <CardHeader>
               <CardTitle className="flex w-full justify-center items-center">
