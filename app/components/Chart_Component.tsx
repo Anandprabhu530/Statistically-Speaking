@@ -111,7 +111,7 @@ export function Chart_Component({
 }: any) {
   return (
     <div className=" w-full min-h-screen p-10 flex items-center justify-center flex-col text-2xl font-bold">
-      <div className="p-4">Dashboard</div>
+      <div className="p-4 text-3xl">Dashboard</div>
       <div className="grid grid-rows-2 grid-cols-3 gap-6 w-full h-full pt-6">
         <div className="row-span-2 col-span-2 h-full">
           <Card className="h-full pt-8">

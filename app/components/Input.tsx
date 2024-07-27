@@ -20,14 +20,6 @@ const InputBox = () => {
 
   //Rearranging the data to display it in table-form
   let columns: ColumnDef<any>[];
-  if (chat.length > 1 && !loading) {
-    const columnnames = Object.keys(chat[chat.length - 1].query_result[0]);
-    let arr: any = [];
-    for (let i = 0; i < columnnames.length; i++) {
-      arr.push({ accessorKey: columnnames[i], header: columnnames[i] });
-    }
-    columns = arr;
-  }
 
   //Submit funtion
   const handlesubmit = async () => {
@@ -43,8 +35,17 @@ const InputBox = () => {
       headers: { Accept: "application/json", method: "POST" },
       body: JSON.stringify({ input: input }),
     }).then((res) => res.json());
-
+    const columnnames = Object.keys(data.response.query_result[0]);
+    let arr: any = [];
+    for (let i = 0; i < columnnames.length; i++) {
+      const name =
+        columnnames[i].slice(0, 1).toUpperCase() + columnnames[i].slice(1);
+      arr.push({ accessorKey: columnnames[i], header: name });
+    }
+    columns = arr;
+    data.response.columns = columns;
     setChat((prev: any) => [...prev, data.response]);
+    console.log(chat);
     setLoading(false);
   };
 
@@ -67,21 +68,21 @@ const InputBox = () => {
             {chat.map((solodata: any, index: number) => (
               <div key={index} className="">
                 {index % 2 === 0 ? (
-                  <div className="text-lg font-semibold pl-6 py-4 rounded-t-lg shadow-xl bg-neutral-100 border-t border-r border-l border-neutral-300">
+                  <div className="text-lg font-semibold pl-6 py-4 rounded-t-xl shadow-xl bg-neutral-100 border-t border-r border-l border-neutral-300">
                     {chat[index]}
                     {loading && (
-                      <div className="pt-4">
-                        <div className="text-xl text-neutral-400 h-[15rem] w-full border border-neutral-300 rounded-xl lg:rounded-md flex justify-center items-center">
+                      <div className="py-4 pr-6">
+                        <div className="text-xl text-neutral-400 h-[15rem] w-full border border-neutral-300 rounded-xl flex justify-center items-center">
                           Loading...
                         </div>
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="p-6 pt-2 rounded-b-lg shadow-xl mb-8 bg-neutral-100 border-b border-l border-r border-neutral-300">
-                    {columns && (
+                  <div className="p-6 pt-2 rounded-b-xl shadow-xl mb-8 bg-neutral-100 border-b border-l border-r border-neutral-300">
+                    {chat.length >= 2 && (
                       <div>
-                        <div className="rounded-xl lg:rounded-md bg-neutral-900 text-white p-2">
+                        <div className="rounded-xl bg-neutral-900 text-white p-2">
                           <ReactMarkdown>
                             {chat[index].query_markdown}
                           </ReactMarkdown>
@@ -93,7 +94,7 @@ const InputBox = () => {
                           {chat[index].query_explanation}
                         </div>
                         <DataTable
-                          columns={columns}
+                          columns={chat[index].columns}
                           data={chat[index].query_result}
                         />
                         {
