@@ -47,11 +47,17 @@ const InputBox = () => {
     setChat((prev: any) => [...prev, data.response]);
     console.log(chat);
     setLoading(false);
+    setInput("");
   };
 
   useEffect(() => {
     console.log(chat, "from use effect");
   }, [chat]);
+
+  useEffect(() => {
+    // @ts-ignore
+    textref.current.focus();
+  }, []);
 
   useEffect(() => {
     // @ts-ignore
