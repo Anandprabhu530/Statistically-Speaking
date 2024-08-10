@@ -5,8 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { DataTable } from "./DataTable";
 import ReactMarkdown from "react-markdown";
 import Mapper from "./Mapper";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 const InputBox = () => {
+  const { toast } = useToast();
+  const router = useRouter();
+
   const [input, setInput] = useState("");
   const [first, setFirst] = useState(false);
   const [chat, setChat] = useState<any>([]);
@@ -35,6 +41,25 @@ const InputBox = () => {
       headers: { Accept: "application/json", method: "POST" },
       body: JSON.stringify({ input: input }),
     }).then((res) => res.json());
+
+    if (data.response.query_result.length == 0) {
+      setLoading(false);
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "The question does not relate to the database",
+        action: (
+          <ToastAction
+            altText="Try again"
+            onClick={() => router.push("/understand")}
+          >
+            Understand Schema
+          </ToastAction>
+        ),
+      });
+      const arr = chat.slice(0, chat.length);
+      setChat(arr);
+      return;
+    }
     const columnnames = Object.keys(data.response.query_result[0]);
     let arr: any = [];
     for (let i = 0; i < columnnames.length; i++) {
@@ -45,20 +70,18 @@ const InputBox = () => {
     columns = arr;
     data.response.columns = columns;
     setChat((prev: any) => [...prev, data.response]);
-    console.log(chat);
     setLoading(false);
     setInput("");
   };
-
-  useEffect(() => {
-    console.log(chat, "from use effect");
-  }, [chat]);
 
   useEffect(() => {
     // @ts-ignore
     textref.current.focus();
   }, []);
 
+  useEffect(() => {
+    console.log(chat, "from useEffect");
+  }, [chat]);
   useEffect(() => {
     // @ts-ignore
     const height = textref.current.scrollHeight;

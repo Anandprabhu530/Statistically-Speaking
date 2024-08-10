@@ -1,4 +1,5 @@
 import { Chart_Component } from "../components/Chart_Component";
+import Navbar from "../components/Navbar";
 
 const chart_color = [
   "var(--color-chrome)",
@@ -76,6 +77,7 @@ export default async function page() {
 
   return (
     <div className="w-full h-screen">
+      <Navbar check={false} />
       {Salarydata.message.length !== 0 && (
         <Chart_Component
           Locationdata={Locationdata.message}

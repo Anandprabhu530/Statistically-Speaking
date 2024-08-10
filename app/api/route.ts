@@ -33,6 +33,5 @@ export async function POST(request: NextRequest) {
   const exec_query = output.query;
   const query_call = await result(exec_query);
   output.query_result = query_call;
-  console.log("Exited AI Function");
   return Response.json({ response: output });
 }
