@@ -21,7 +21,7 @@ const Dashboard = () => {
   useEffect(() => {
     const res = async () => {
       const Locationdata_fetch = await fetch(
-        "http://localhost:3000/api/dashboard",
+        "https://statistically-speaking.vercel.app/api/dashboard",
         {
           method: "POST",
           headers: {
@@ -38,7 +38,7 @@ const Dashboard = () => {
       setLocationdata(Locationdata_fetch);
 
       const Roledata_fetch = await fetch(
-        "http://localhost:3000/api/dashboard",
+        "https://statistically-speaking.vercel.app/api/dashboard",
         {
           method: "POST",
           headers: {
@@ -55,7 +55,7 @@ const Dashboard = () => {
       });
       setRoledata(Roledata_fetch);
       const Employementdata_fetch = await fetch(
-        "http://localhost:3000/api/dashboard",
+        "https://statistically-speaking.vercel.app/api/dashboard",
         {
           method: "POST",
           headers: {
@@ -71,7 +71,7 @@ const Dashboard = () => {
       });
 
       const Salarydata_fetch = await fetch(
-        "http://localhost:3000/api/dashboard",
+        "https://statistically-speaking.vercel.app/api/dashboard",
         {
           method: "POST",
           headers: {
@@ -83,7 +83,7 @@ const Dashboard = () => {
       ).then((res) => res.json());
 
       const CompanyData_fetch = await fetch(
-        "http://localhost:3000/api/dashboard",
+        "https://statistically-speaking.vercel.app/api/dashboard",
         {
           method: "POST",
           headers: {

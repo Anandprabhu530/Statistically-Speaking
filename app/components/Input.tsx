@@ -36,7 +36,7 @@ const InputBox = () => {
     setChat((prev: any) => [...prev, [input]]);
     setLoading(true);
 
-    const data = await fetch("http://localhost:3000/api", {
+    const data = await fetch("https://statistically-speaking.vercel.app/api", {
       method: "POST",
       headers: { Accept: "application/json", method: "POST" },
       body: JSON.stringify({ input: input }),
