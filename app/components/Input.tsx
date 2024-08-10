@@ -80,9 +80,6 @@ const InputBox = () => {
   }, []);
 
   useEffect(() => {
-    console.log(chat, "from useEffect");
-  }, [chat]);
-  useEffect(() => {
     // @ts-ignore
     const height = textref.current.scrollHeight;
     // @ts-ignore
