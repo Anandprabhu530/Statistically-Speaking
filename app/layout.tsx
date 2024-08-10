@@ -21,6 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" sizes="192x192" href="/mirthly.jpg" />
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
