@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
                     salary INT: salary for the job per year.
                     employement VARCHAR(250): Type of employment,Full-time,Intern, Contractor.
                     Location VARCHAR(250): Location of job.
-                    roles VARCHAR(50): In domain they work.(eg. Andriod, IOS, Web, Java etc).. Output in the below format only.
+                    roles VARCHAR(250): In domain they work.(eg. Andriod, IOS, Web, Java etc).. Output in the below format only.
                     {
                       query:"Command for the given input here without any markdown. Strictly no markdown",
                       recommendation: "Additional questions that can be asked.Given an array as output for length of 4",
