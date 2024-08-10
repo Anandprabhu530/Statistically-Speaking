@@ -1,12 +1,7 @@
 import pg from "pg";
 const { Pool } = pg;
-
 const pool = new Pool({
-  host: "localhost",
-  user: "postgres",
-  database: "test",
-  password: "9944",
-  port: 5432,
+  connectionString: process.env.POSTGRES_URL,
 });
 
 export async function result(input: any) {

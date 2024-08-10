@@ -9,7 +9,7 @@ const chart_color = [
   "var(--color-other)",
 ];
 
-export default async function page() {
+export default async function Dashboard() {
   const Locationdata = await fetch("http://localhost:3000/api/dashboard", {
     method: "POST",
     headers: {
