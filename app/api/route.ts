@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
   const { input } = await request.json();
   const prompt = `Give me the correct sql code for obtaining the result for given input below. the table_name is test_data.
                     I have postgresql database with 1 table. tablele name is test_data,
-                    the 7 columns are
+                    the 6 columns are
                     company VARCHAR(250): name of company.
                     job VARCHAR(250): Name of job.
                     salary INT: salary for the job per year.
