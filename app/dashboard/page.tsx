@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { Chart_Component } from "../components/Chart_Component";
 import Navbar from "../components/Navbar";
 
@@ -9,76 +12,110 @@ const chart_color = [
   "var(--color-other)",
 ];
 
-export default async function Dashboard() {
-  const Locationdata = await fetch("http://localhost:3000/api/dashboard", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      method: "POST",
-      data: "Location_data",
-    },
-  }).then((res) => res.json());
+const Dashboard = () => {
+  const [Salarydata, setSalarydata] = useState<any>();
+  const [Locationdata, setLocationdata] = useState<any>();
+  const [Roledata, setRoledata] = useState<any>();
+  const [Employementdata, setEmployementdata] = useState<any>();
+  const [CompanyData, setCompanyData] = useState<any>();
+  useEffect(() => {
+    const res = async () => {
+      const Locationdata_fetch = await fetch(
+        "http://localhost:3000/api/dashboard",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            method: "POST",
+            data: "Location_data",
+          },
+        }
+      ).then((res) => res.json());
 
-  Locationdata.message.map((solodata: any) => {
-    solodata.location_count = parseInt(solodata.location_count);
-  });
+      Locationdata_fetch.message.map((solodata: any) => {
+        solodata.location_count = parseInt(solodata.location_count);
+      });
+      setLocationdata(Locationdata_fetch);
 
-  const Roledata = await fetch("http://localhost:3000/api/dashboard", {
-    method: "POST",
-    headers: { Accept: "application/json", method: "POST", data: "Role_data" },
-  }).then((res) => res.json());
+      const Roledata_fetch = await fetch(
+        "http://localhost:3000/api/dashboard",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            method: "POST",
+            data: "Role_data",
+          },
+        }
+      ).then((res) => res.json());
 
-  Roledata.message.map((solodata: any) => {
-    solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    solodata.roles_count = parseInt(solodata.roles_count);
-  });
+      Roledata_fetch.message.map((solodata: any) => {
+        solodata.fill = "#" + Math.floor(Math.random() * 16777215).toString(16);
+        solodata.roles_count = parseInt(solodata.roles_count);
+      });
+      setRoledata(Roledata_fetch);
+      const Employementdata_fetch = await fetch(
+        "http://localhost:3000/api/dashboard",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            method: "POST",
+            data: "Employement_data",
+          },
+        }
+      ).then((res) => res.json());
 
-  const Employementdata = await fetch("http://localhost:3000/api/dashboard", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      method: "POST",
-      data: "Employement_data",
-    },
-  }).then((res) => res.json());
+      Employementdata_fetch.message.map((solodata: any) => {
+        solodata.employement_count = parseInt(solodata.employement_count);
+      });
 
-  Employementdata.message.map((solodata: any) => {
-    solodata.employement_count = parseInt(solodata.employement_count);
-  });
+      const Salarydata_fetch = await fetch(
+        "http://localhost:3000/api/dashboard",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            method: "POST",
+            data: "Salary_data",
+          },
+        }
+      ).then((res) => res.json());
 
-  const Salarydata = await fetch("http://localhost:3000/api/dashboard", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      method: "POST",
-      data: "Salary_data",
-    },
-  }).then((res) => res.json());
+      const CompanyData_fetch = await fetch(
+        "http://localhost:3000/api/dashboard",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            method: "POST",
+            data: "Company_vs_job",
+          },
+        }
+      ).then((res) => res.json());
 
-  const CompanyData = await fetch("http://localhost:3000/api/dashboard", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      method: "POST",
-      data: "Company_vs_job",
-    },
-  }).then((res) => res.json());
+      CompanyData_fetch.message.map((solodata: any, index: number) => {
+        solodata.fill = chart_color[index];
+      });
 
-  CompanyData.message.map((solodata: any, index: number) => {
-    solodata.fill = chart_color[index];
-  });
+      Salarydata_fetch.message.map((solodata: any) => {
+        solodata.average_salary = Math.floor(solodata.average_salary);
+      });
 
-  Salarydata.message.map((solodata: any) => {
-    solodata.average_salary = Math.floor(solodata.average_salary);
-  });
-  Employementdata.message.map((solodata: any, index: number) => {
-    solodata.fill = chart_color[index];
-  });
+      Employementdata_fetch.message.map((solodata: any, index: number) => {
+        solodata.fill = chart_color[index];
+      });
 
+      setEmployementdata(Employementdata_fetch);
+      setSalarydata(Salarydata_fetch);
+      setCompanyData(CompanyData_fetch);
+    };
+    res();
+  }, []);
   return (
     <div className="w-full h-screen">
       <Navbar check={false} />
-      {Salarydata.message.length !== 0 && (
+      {Salarydata && Salarydata.message.length !== 0 && (
         <Chart_Component
           Locationdata={Locationdata.message}
           Salarydata={Salarydata.message}
@@ -89,4 +126,6 @@ export default async function Dashboard() {
       )}
     </div>
   );
-}
+};
+
+export default Dashboard;
